@@ -42,6 +42,7 @@ rook-ceph:
 
 rook-ceph-cluster:
   operatorNamespace: infra-storage
+  clusterName: infra-ceph
   cephClusterSpec:
     cephVersion:
       image: quay.io/ceph/ceph:v18.2.2
@@ -59,10 +60,6 @@ rook-ceph-cluster:
     dashboard:
       enabled: true
       ssl: false
-
-    monitoring:
-      enabled: true
-      rulesNamespace: infra-storage
 
     network:
       provider: host
