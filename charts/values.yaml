@@ -41,6 +41,7 @@ rook-ceph:
     enabled: true
 
 rook-ceph-cluster:
+  operatorNamespace: infra-storage
   cephClusterSpec:
     cephVersion:
       image: quay.io/ceph/ceph:v18.2.2
