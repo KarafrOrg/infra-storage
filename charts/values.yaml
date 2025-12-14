@@ -61,7 +61,7 @@ rook-ceph-cluster:
 
     monitoring:
       enabled: true
-      rulesNamespace: rook-ceph
+      rulesNamespace: infra-storage
 
     network:
       provider: host
