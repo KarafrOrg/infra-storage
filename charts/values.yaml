@@ -1,5 +1,4 @@
 longhorn:
-  namespaceOverride: longhorn
   preUpgradeChecker:
     jobEnabled: false
     upgradeVersionCheck: false
@@ -13,7 +12,7 @@ longhorn:
   database:
     image: postgres:17
     secretRef:
-      name: postgres-longhorn-secret
+#      name: postgres-longhorn-secret
     databaseName: longhorn
     port: 5342
     appName: postgres
