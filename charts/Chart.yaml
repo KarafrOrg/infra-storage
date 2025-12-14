@@ -1,0 +1,25 @@
+name: infra-storage
+apiVersion: v2
+version: 0.1.0
+description: A Helm chart for deploying homelab storage stack
+type: application
+appVersion: 0.1.0
+maintainers:
+  - name: KarafrOrg
+    email: karafra@karafra.net
+keywords:
+  - monitoring
+  - storage
+  - grafana
+  - s3
+  - homelab
+dependencies:
+  - name: rook-ceph
+    version: v1.18.8
+    repository: https://charts.rook.io/release
+  - name: rook-ceph-cluster
+    version: v1.18.8
+    repository: https://charts.rook.io/release
+  - name: longhorn
+    version: 1.10.1
+    repository: https://charts.longhorn.io

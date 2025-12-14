@@ -1,0 +1,12 @@
+dependencies:
+- name: rook-ceph
+  repository: https://charts.rook.io/release
+  version: v1.18.8
+- name: rook-ceph-cluster
+  repository: https://charts.rook.io/release
+  version: v1.18.8
+- name: longhorn
+  repository: https://charts.longhorn.io
+  version: 1.10.1
+digest: sha256:fade146ee7e77028e37a825c82574bcf7f294457829456223a77f674a90c1d54
+generated: "2025-12-14T23:56:43.420595+01:00"

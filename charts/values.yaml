@@ -1,0 +1,99 @@
+longhorn:
+  namespaceOverride: longhorn
+  preUpgradeChecker:
+    jobEnabled: false
+    upgradeVersionCheck: false
+  persistence:
+    defaultClassReplicaCount: 1
+  metrics:
+    serviceMonitor:
+      enabled: true
+      additionalLabels:
+        metrics-collector: prometheus
+  database:
+    image: postgres:17
+    secretRef:
+      name: postgres-longhorn-secret
+    databaseName: longhorn
+    port: 5342
+    appName: postgres
+    volumes:
+      mountName: postgres-longhorn-volume
+      mountPath: /var/lib/ghost/content
+      claimName: postgres-longhorn-pvc
+      claimSize: 10Gi
+rook-ceph:
+  crds:
+    enabled: true
+
+  image:
+    repository: quay.io/rook/ceph
+    tag: v1.18.8
+
+  resources:
+    limits:
+      cpu: "500m"
+      memory: "512Mi"
+    requests:
+      cpu: "100m"
+      memory: "128Mi"
+
+  monitoring:
+    enabled: true
+
+rook-ceph-cluster:
+  cephClusterSpec:
+    cephVersion:
+      image: quay.io/ceph/ceph:v18.2.2
+      allowUnsupported: false
+
+    dataDirHostPath: /var/lib/rook
+
+    mon:
+      count: 3
+      allowMultiplePerNode: false
+
+    mgr:
+      count: 2
+
+    dashboard:
+      enabled: true
+      ssl: false
+
+    monitoring:
+      enabled: true
+      rulesNamespace: rook-ceph
+
+    network:
+      provider: host
+
+    crashCollector:
+      disable: false
+
+    storage:
+      useAllNodes: true
+      useAllDevices: false
+      devices:
+        - name: /dev/sdb
+        - name: /dev/sdc
+
+    resources:
+      mon:
+        limits:
+          cpu: "500m"
+          memory: "1Gi"
+      mgr:
+        limits:
+          cpu: "500m"
+          memory: "1Gi"
+      osd:
+        limits:
+          cpu: "2"
+          memory: "4Gi"
+        requests:
+          cpu: "500m"
+          memory: "2Gi"
+
+    disruptionManagement:
+      managePodBudgets: true
+      osdMaintenanceTimeout: 30
