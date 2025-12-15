@@ -7,5 +7,5 @@ metadata:
   namespace: rook-ceph
 spec:
   store: {{ $user.objectStoreName }}
-  displayName: ${{ $user.displayName }}
+  displayName: {{ $user.displayName }}
 {{- end}}
