@@ -127,4 +127,4 @@ rook-ceph-cluster:
 
 cephObjectStoreUsers:
   - displayName: tempo-admin
-    objectStoreName: default-object-store
+    objectStoreName: ceph-objectstore
