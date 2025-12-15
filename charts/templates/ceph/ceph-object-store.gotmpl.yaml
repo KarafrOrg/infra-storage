@@ -1,16 +1,22 @@
-apiVersion: ceph.rook.io/v1
+apiVersion: ceph.rook.io/v1alpha1
 kind: CephObjectStore
 metadata:
-  name: rook-ceph-object-store
+  name: my-store
+  namespace: rook-ceph
 spec:
-  # Number of RGW instances
-  gateway:
-    instances: 1
-    type: s3
-  # Pool specs
-  dataPool:
-    replicated:
-      size: 3
   metadataPool:
+    failureDomain: host
     replicated:
       size: 3
+  dataPool:
+    failureDomain: device
+    erasureCoded:
+      dataChunks: 6
+      codingChunks: 2
+  gateway:
+    port: 80
+    securePort: 443
+    instances: 3
+    hosting:
+      dnsNames:
+        - "ceph.storage.karafra.net"
