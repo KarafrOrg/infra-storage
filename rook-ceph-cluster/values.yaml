@@ -35,7 +35,7 @@ rook-ceph-cluster:
     resources:
       mon:
         limits:
-          cpu: "500m"
+          cpu: "1.5M"
           memory: "1Gi"
         requests:
           cpu: "250m"
