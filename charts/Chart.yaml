@@ -14,10 +14,7 @@ keywords:
 dependencies:
   - name: infra-storage-rook-ceph
     version: 0.1.0
-    repository: file://./rook-ceph
   - name: infra-storage-rook-ceph-cluster
     version: v0.1.0
-    repository: file://./rook-ceph-cluster
   - name: infra-storage-longhorn
     version: v0.1.0
-    repository: file://./longhorn
