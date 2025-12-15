@@ -14,5 +14,3 @@ spec:
   metadataPool:
     replicated:
       size: 3
-  # Optional: TLS (skip for HTTP)
-  secure: false
