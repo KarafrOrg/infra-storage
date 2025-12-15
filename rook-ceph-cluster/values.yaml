@@ -27,9 +27,7 @@ rook-ceph-cluster:
 
     storage:
       useAllNodes: true
-      useAllDevices: true
-      devices:
-        - path: /var/lib/rook
+      useAllDevices: false
 
     resources:
       mon:
