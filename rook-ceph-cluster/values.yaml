@@ -28,6 +28,16 @@ rook-ceph-cluster:
     storage:
       useAllNodes: true
       useAllDevices: false
+      nodes:
+        - name: ns331578
+          directories:
+            - path: /var/lib/rook
+        - name: ns3156252
+          directories:
+            - path: /var/lib/rook
+        - name: ns3156292
+          directories:
+            - path: /var/lib/rook
 
     resources:
       mon:
