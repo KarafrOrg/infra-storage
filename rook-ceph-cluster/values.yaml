@@ -79,3 +79,51 @@ rook-ceph-cluster:
     disruptionManagement:
       managePodBudgets: true
       osdMaintenanceTimeout: 30
+  cephObjectStores:
+    - name: ceph-objectstore
+      spec:
+        metadataPool:
+          failureDomain: host
+          replicated:
+            size: 3
+        dataPool:
+          failureDomain: host
+          erasureCoded:
+            dataChunks: 2
+            codingChunks: 1
+          parameters:
+            bulk: "true"
+        preservePoolsOnDelete: true
+        gateway:
+          port: 8080
+          resources:
+            limits:
+              memory: "2Gi"
+            requests:
+              cpu: "1000m"
+              memory: "1Gi"
+          securePort: 8443
+          instances: 1
+          priorityClassName: system-cluster-critical
+      storageClass:
+        enabled: true
+        name: ceph-bucket
+        reclaimPolicy: Delete
+        volumeBindingMode: "Immediate"
+        annotations: { }
+        labels: { }
+        parameters:
+          region: eu-east-1
+      ingress:
+        enabled: true
+        ingressClassName: traefik
+        annotations:
+          cert-manager.io/cluster-issuer: letsencrypt
+        hosts:
+          - objectstore.karafra.net
+        tls:
+          - hosts:
+              - objectstore.karafra.net
+            secretName: grafana-tls
+      route:
+        enabled: false
