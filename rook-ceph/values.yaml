@@ -1,4 +1,7 @@
 rook-ceph:
+  csi:
+    enableRbdDriver: true
+    enableCephfsDriver: true
   crds:
     enabled: true
   image:

@@ -37,10 +37,16 @@ rook-ceph-cluster:
         limits:
           cpu: "500m"
           memory: "1Gi"
+        requests:
+          cpu: "250m"
+          memory: "500Mi"
       mgr:
         limits:
           cpu: "500m"
           memory: "1Gi"
+        requests:
+          cpu: "250m"
+          memory: "500Mi"
       osd:
         limits:
           cpu: "2"
