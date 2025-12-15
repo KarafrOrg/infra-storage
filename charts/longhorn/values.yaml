@@ -1,0 +1,23 @@
+longhorn:
+  preUpgradeChecker:
+    jobEnabled: false
+    upgradeVersionCheck: false
+  persistence:
+    defaultClassReplicaCount: 1
+  metrics:
+    serviceMonitor:
+      enabled: true
+      additionalLabels:
+        metrics-collector: prometheus
+  database:
+    image: postgres:17
+    secretRef:
+      name: postgres-longhorn-secret
+    databaseName: longhorn
+    port: 5342
+    appName: postgres
+    volumes:
+      mountName: postgres-longhorn-volume
+      mountPath: /var/lib/ghost/content
+      claimName: postgres-longhorn-pvc
+      claimSize: 10Gi

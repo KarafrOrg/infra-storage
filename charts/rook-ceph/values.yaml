@@ -1,0 +1,15 @@
+rook-ceph:
+  crds:
+    enabled: true
+  image:
+    repository: quay.io/rook/ceph
+    tag: v1.18.8
+  resources:
+    limits:
+      cpu: "500m"
+      memory: "512Mi"
+    requests:
+      cpu: "100m"
+      memory: "128Mi"
+  monitoring:
+    enabled: true
