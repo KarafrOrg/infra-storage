@@ -126,6 +126,6 @@ rook-ceph-cluster:
         tls:
           - hosts:
               - objectstore.karafra.net
-            secretName: grafana-tls
+            secretName: objectstore-tls
       route:
         enabled: false
