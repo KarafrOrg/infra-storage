@@ -119,8 +119,10 @@ rook-ceph-cluster:
         ingressClassName: traefik
         annotations:
           cert-manager.io/cluster-issuer: letsencrypt
-        hosts:
-          - objectstore.karafra.net
+        host:
+          name: objectstore.karafra.net
+          path: /
+          pathType: Prefix
         tls:
           - hosts:
               - objectstore.karafra.net
