@@ -17,17 +17,13 @@ rook-ceph-cluster:
               storage: 100Gi
     mgr:
       count: 2
-
     dashboard:
       enabled: true
       ssl: false
-
     network:
       provider: host
-
     crashCollector:
       disable: false
-
     storage:
       useAllNodes: true
       useAllDevices: false
@@ -75,7 +71,6 @@ rook-ceph-cluster:
         requests:
           cpu: "500m"
           memory: "2Gi"
-
     disruptionManagement:
       managePodBudgets: true
       osdMaintenanceTimeout: 30
@@ -95,14 +90,14 @@ rook-ceph-cluster:
             bulk: "true"
         preservePoolsOnDelete: true
         gateway:
-          port: 8080
+          port: 80
           resources:
             limits:
               memory: "2Gi"
             requests:
               cpu: "1000m"
               memory: "1Gi"
-          securePort: 8443
+          securePort: 443
           instances: 1
           priorityClassName: system-cluster-critical
       storageClass:
@@ -129,3 +124,7 @@ rook-ceph-cluster:
             secretName: objectstore-tls
       route:
         enabled: false
+
+cephObjectStoreUsers:
+  - displayName: tempo-admin
+    objectStoreName: default-object-store

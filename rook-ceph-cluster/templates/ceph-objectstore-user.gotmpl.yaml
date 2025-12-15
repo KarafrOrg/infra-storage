@@ -1,0 +1,11 @@
+{{- range $user := .Values.cephObjectStoreUsers  }}
+---
+apiVersion: ceph.rook.io/v1
+kind: CephObjectStoreUser
+metadata:
+  name: tempo-user
+  namespace: rook-ceph
+spec:
+  store: {{ $user.objectStoreName }}
+  displayName: ${{ $user.displayName }}
+{{- end}}
