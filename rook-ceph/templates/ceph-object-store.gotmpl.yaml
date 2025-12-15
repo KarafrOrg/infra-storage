@@ -1,21 +1,19 @@
 apiVersion: ceph.rook.io/v1
 kind: CephObjectStore
 metadata:
-  name: rook-ceph-object-store
+  name: default-object-store
 spec:
   metadataPool:
     failureDomain: host
     replicated:
       size: 3
   dataPool:
-    failureDomain: device
+    failureDomain: host
     erasureCoded:
-      dataChunks: 6
-      codingChunks: 2
+      dataChunks: 8
+      codingChunks: 4
+    parameters:
+  preservePoolsOnDelete: true
   gateway:
     port: 80
-    securePort: 443
-    instances: 3
-    hosting:
-      dnsNames:
-        - "ceph.storage.karafra.net"
+    instances: 1
