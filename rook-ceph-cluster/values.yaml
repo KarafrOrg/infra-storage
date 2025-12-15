@@ -5,13 +5,16 @@ rook-ceph-cluster:
     cephVersion:
       image: quay.io/ceph/ceph:v18.2.2
       allowUnsupported: false
-
     dataDirHostPath: /var/lib/rook
-
     mon:
       count: 3
       allowMultiplePerNode: false
-
+      volumeClaimTemplate:
+        spec:
+          storageClassName: longhorn
+          resources:
+            requests:
+              storage: 100Gi
     mgr:
       count: 2
 
@@ -29,7 +32,39 @@ rook-ceph-cluster:
       useAllNodes: true
       useAllDevices: false
       deviceFilter: ""
-
+      storageClassDeviceSets:
+        - name: set1
+          count: 3
+          portable: false
+          resources:
+            limits:
+              memory: "4Gi"
+            requests:
+              cpu: "500m"
+              memory: "4Gi"
+          placement:
+            podAntiAffinity:
+              preferredDuringSchedulingIgnoredDuringExecution:
+                - weight: 100
+                  podAffinityTerm:
+                    labelSelector:
+                      matchExpressions:
+                        - key: "rook.io/cluster"
+                          operator: In
+                          values:
+                            - cluster1
+                    topologyKey: "topology.kubernetes.io/zone"
+          volumeClaimTemplates:
+            - metadata:
+                name: data
+              spec:
+                resources:
+                  requests:
+                    storage: 50Gi
+                storageClassName: longhorn
+                volumeMode: Block
+                accessModes:
+                  - ReadWriteOnce
     resources:
       mon:
         limits:
