@@ -114,7 +114,8 @@ rook-ceph-cluster:
           volumeClaimTemplates:
             - metadata:
                 name: data
-
+                labels:
+                  app: rook-ceph-osd
               spec:
                 resources:
                   requests:
