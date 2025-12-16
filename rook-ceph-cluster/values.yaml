@@ -67,7 +67,7 @@ rook-ceph-cluster:
           # as soon as you have more than one OSD per node. The topology spread constraints will
           # give us an even spread on K8s 1.18 or newer.
           placement:
-            topologySpreadConstraints: {}
+            topologySpreadConstraints: []
           preparePlacement:
             podAntiAffinity: {}
             topologySpreadConstraints:
