@@ -13,8 +13,7 @@ rook-ceph-cluster:
     apiVersion: ceph.rook.io/v1
     kind: CephCluster
     metadata:
-      name: rook-ceph
-      namespace: rook-ceph # namespace:cluster
+      name: infra-ceph
     spec:
       # If there are multiple clusters, the directory must be unique for each cluster.
       dataDirHostPath: /var/lib/rook
