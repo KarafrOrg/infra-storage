@@ -27,7 +27,7 @@ rook-ceph-cluster:
     storage:
       useAllNodes: true
       useAllDevices: false
-      deviceFilter: "loop10"
+      deviceFilter: ""
       storageClassDeviceSets:
         - name: set1
           count: 3
