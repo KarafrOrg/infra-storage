@@ -134,6 +134,8 @@ rook-ceph-cluster:
             requests:
               cpu: "1000m"
               memory: "1Gi"
+          securePort: 443
+          sslCertificateRef: objectstore-tls
           instances: 1
           priorityClassName: system-cluster-critical
       storageClass:
