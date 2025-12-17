@@ -42,6 +42,9 @@ seaweedfs:
       domainName: objectstore.karafra.net
       existingConfigSecret: seaweedfs-s3-credentials
       externalSecretKey: seaweedfs-s3-credentials
+      createBuckets:
+        - name: tempo-traces
+          anonymousRead: false
   s3:
     domainName: objectstore.karafra.net
     ingress:
