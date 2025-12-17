@@ -36,21 +36,20 @@ seaweedfs:
       requests:
         cpu: "250m"
         memory: "256Mi"
-    # optional: enable S3 gateway
     s3:
       enabled: true
       port: 8333
-
-  network:
-    host: 0.0.0.0
-    ports:
-      master: 9333
-      volume: 8080
-      filer: 8888
-      s3: 8333
-
-  persistence:
-    enabled: true
-    storageClass: ""
-    accessMode: ReadWriteOnce
-    size: 10Gi
+      domainName: objectstore.karafra.net
+  s3:
+    domainName: objectstore.karafra.net
+    ingress:
+      enabled: true
+      ingressClassName: traefik
+      annotations:
+        cert-manager.io/cluster-issuer: letsencrypt
+      hosts:
+        - objectstore.karafra.net
+      tls:
+        - hosts:
+            - objectstore.karafra.net
+          secretName: s3-tls
