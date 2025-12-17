@@ -40,6 +40,8 @@ seaweedfs:
       enabled: true
       port: 8333
       domainName: objectstore.karafra.net
+      existingConfigSecret: s
+      externalSecretKey: seaweedfs-s3-credentials
   s3:
     domainName: objectstore.karafra.net
     ingress:
