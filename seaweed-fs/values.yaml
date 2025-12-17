@@ -44,7 +44,7 @@ seaweedfs:
     domainName: objectstore.karafra.net
     ingress:
       enabled: true
-      ingressClassName: traefik
+      className: traefik
       annotations:
         cert-manager.io/cluster-issuer: letsencrypt
       hosts:
