@@ -47,8 +47,7 @@ seaweedfs:
       className: traefik
       annotations:
         cert-manager.io/cluster-issuer: letsencrypt
-      hosts:
-        - objectstore.karafra.net
+      host: objectstore.karafra.net
       tls:
         - hosts:
             - objectstore.karafra.net
