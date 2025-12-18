@@ -45,6 +45,8 @@ seaweedfs:
       createBuckets:
         - name: tempo-traces
           anonymousRead: false
+        - name: pyroscope-profiles
+          anonymousRead: false
   s3:
     domainName: objectstore.karafra.net
     ingress:
