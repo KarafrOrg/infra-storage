@@ -47,6 +47,8 @@ seaweedfs:
           anonymousRead: false
         - name: pyroscope-profiles
           anonymousRead: false
+        - name: loki-logs
+          anonymousRead: false
   s3:
     domainName: objectstore.karafra.net
     ingress:
