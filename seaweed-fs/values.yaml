@@ -61,3 +61,15 @@ seaweedfs:
         - hosts:
             - objectstore.karafra.net
           secretName: s3-tls
+  admin:
+    enabled: true
+    ingress:
+      enabled: true
+      className: traefik
+      annotations:
+        cert-manager.io/cluster-issuer: letsencrypt
+      host: seaweedfs-admin.karafra.net
+      tls:
+        - hosts:
+            - seaweedfs-admin.karafra.net
+          secretName: seaweedfs-admin-tls
