@@ -67,6 +67,7 @@ seaweedfs:
       enabled: true
       className: traefik
       annotations:
+        traefik.ingress.kubernetes.io/router.middlewares: "seaweedfs-admin-forward-auth@kubernetescrd"
         cert-manager.io/cluster-issuer: letsencrypt
       host: seaweedfs-admin.karafra.net
       tls:
@@ -82,8 +83,12 @@ oauth2-proxy:
     emailDomains:
       - '*'
     githubOrg: KarafrOrg
-    redirectURL: https://seaweedfs-admin.oauth2/oauth2/callback
+    redirectURL: https://seaweedfs-admin.oauth2.karafra.net/oauth2/callback
     scope: "user:email"
+  extraArgs:
+    - --skip-provider-button
+    - --cookie-secure=true
+    - --reverse-proxy=true
   ingress:
     enabled: true
     className: traefik
