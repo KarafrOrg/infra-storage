@@ -73,3 +73,5 @@ seaweedfs:
         - hosts:
             - seaweedfs-admin.karafra.net
           secretName: seaweedfs-admin-tls
+  worker:
+    enabled: true
