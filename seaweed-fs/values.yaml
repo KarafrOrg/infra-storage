@@ -73,3 +73,25 @@ seaweedfs:
         - hosts:
             - seaweedfs-admin.karafra.net
           secretName: seaweedfs-admin-tls
+
+oauth2-proxy:
+  config:
+    existingSecret: seaweedfs-oauth2-proxy-config
+    externalSecretKey: seaweedfs-oauth2-proxy-config
+    provider: github
+    emailDomains:
+      - '*'
+    githubOrg: KarafrOrg
+    redirectURL: https://seaweedfs-admin.oauth2/oauth2/callback
+    scope: "user:email"
+  ingress:
+    enabled: true
+    className: traefik
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt
+    hosts:
+      - seaweedfs-admin.oauth2.karafra.net
+    tls:
+      - hosts:
+          - seaweedfs-admin.oauth2.karafra.net
+        secretName: seaweed-oauth2-proxy-tls

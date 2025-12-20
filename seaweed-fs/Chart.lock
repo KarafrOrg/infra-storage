@@ -2,5 +2,8 @@ dependencies:
 - name: seaweedfs
   repository: https://seaweedfs.github.io/seaweedfs/helm
   version: 4.0.403
-digest: sha256:7214acb5b8d6b5ed28bc17472f0ae3c6fd361fe4beeaefc2b3398b46c662ef80
-generated: "2025-12-16T22:46:53.127618+01:00"
+- name: oauth2-proxy
+  repository: https://oauth2-proxy.github.io/manifests
+  version: 10.0.0
+digest: sha256:2ad34fc0e10f155b08df448ad4bfb0f9c91a579f42a9f36ae0c6accb05b59c5e
+generated: "2025-12-20T11:55:22.173462+01:00"

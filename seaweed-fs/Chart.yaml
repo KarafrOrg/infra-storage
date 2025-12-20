@@ -16,3 +16,6 @@ dependencies:
   - name: seaweedfs
     version: 4.0.403
     repository: https://seaweedfs.github.io/seaweedfs/helm
+  - name: oauth2-proxy
+    repository: https://oauth2-proxy.github.io/manifests
+    version: 10.0.0
