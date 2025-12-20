@@ -75,4 +75,4 @@ seaweedfs:
           secretName: seaweedfs-admin-tls
   worker:
     enabled: true
-    adminServer: seaweedfs-admin.infra-storage.svc.cluster.local
+    adminServer: seaweedfs-admin.infra-storage.svc.cluster.local:33646
