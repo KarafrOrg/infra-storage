@@ -10,6 +10,12 @@ spec:
     - group: networking.istio.io
       kind: Gateway
       namespace: infra-storage
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      namespace: infra-network
+    - group: networking.istio.io
+      kind: Gateway
+      namespace: infra-network
   to:
     - group: ""
       kind: Secret
