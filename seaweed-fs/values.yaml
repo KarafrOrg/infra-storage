@@ -51,16 +51,6 @@ seaweedfs:
           anonymousRead: false
   s3:
     domainName: objectstore.karafra.net
-    ingress:
-      enabled: true
-      className: traefik
-      annotations:
-        cert-manager.io/cluster-issuer: letsencrypt
-      host: objectstore.karafra.net
-      tls:
-        - hosts:
-            - objectstore.karafra.net
-          secretName: s3-tls
   admin:
     enabled: true
     ingress:
