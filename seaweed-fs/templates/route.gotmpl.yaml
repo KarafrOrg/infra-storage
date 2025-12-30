@@ -4,11 +4,15 @@ metadata:
   name: objectstore-public-route
 spec:
   parentRefs:
-    - name: public-ingress-gateway
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: public-ingress-gateway
       namespace: infra-network
   hostnames:
     - objectstore.karafra.net
   rules:
     - backendRefs:
-        - name: seaweedfs-s3
+        - group: ''
+          kind: Service
+          name: seaweedfs-s3
           port: 8333
