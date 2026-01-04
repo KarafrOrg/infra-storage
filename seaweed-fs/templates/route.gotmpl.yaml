@@ -12,9 +12,9 @@ spec:
     - objectstore.karafra.net
   rules:
     - backendRefs:
-        - group: networking.istio.io
-          kind: VirtualService
-          name: objectstore-virtual-service
+        - group: ''
+          kind: Service
+          name: seaweedfs-s3
           port: 8333
           weight: 1
       matches:
