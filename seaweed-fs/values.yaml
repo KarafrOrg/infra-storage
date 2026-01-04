@@ -59,7 +59,7 @@ seaweedfs:
             app.kubernetes.io/component: filer
   worker:
     enabled: true
-    adminServer: seaweedfs-admin.infra-storage.svc.cluster.local:33646
+    adminServer: seaweedfs-admin.infra-storage.svc.cluster.local:23646
   s3:
     domainName: objectstore.karafra.net
   admin:
