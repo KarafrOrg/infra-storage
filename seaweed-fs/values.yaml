@@ -84,3 +84,10 @@ oauth2-proxy:
     - --skip-provider-button
     - --cookie-secure=true
     - --reverse-proxy=true
+    - --upstream=http://seaweedfs-admin:23646
+    - --pass-host-header=true
+    - --set-xauthrequest=true
+    - --cookie-domain=.karafra.net
+    - --whitelist-domain=.karafra.net
+    - --cookie-name=_oauth2_proxy_seaweed
+    - --session-store-type=cookie

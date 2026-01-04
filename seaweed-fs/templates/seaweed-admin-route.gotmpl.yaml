@@ -11,13 +11,25 @@ spec:
   hostnames:
     - seaweed.karafra.net
   rules:
-    - backendRefs:
+    # OAuth2 proxy routes - handle authentication callbacks
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /oauth2
+      backendRefs:
         - group: ''
           kind: Service
-          name: seaweedfs-admin
-          port: 23646
+          name: {{ .Release.Name }}-oauth2-proxy
+          port: 80
           weight: 1
-      matches:
+    # Protected application routes - proxy through oauth2-proxy first
+    - matches:
         - path:
             type: PathPrefix
             value: /
+      backendRefs:
+        - group: ''
+          kind: Service
+          name: {{ .Release.Name }}-oauth2-proxy
+          port: 80
+          weight: 1
