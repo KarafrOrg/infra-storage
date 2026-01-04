@@ -4,7 +4,7 @@ metadata:
   name: seaweed-admin-public-route
 spec:
   parentRefs:
-    - group: seaweed.networking.k8s.io
+    - group: gateway.networking.k8s.io
       kind: Gateway
       name: public-ingress-gateway
       namespace: infra-network
