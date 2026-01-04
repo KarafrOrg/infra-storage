@@ -64,6 +64,15 @@ seaweedfs:
       enabled: false
     livenessProbe:
       enabled: false
+    resources:
+      limits:
+        cpu: 200m
+        memory: 512Mi
+      requests:
+        cpu: 100m
+        memory: 256Mi
+    data:
+      type: emptyDir
   s3:
     domainName: objectstore.karafra.net
   admin:
