@@ -4,7 +4,7 @@ metadata:
   name: seaweed-admin-oauth2-virtual-service
 spec:
   hosts:
-    - oauth2-seaweed.karafra.net
+    - seaweed.karafra.net
   gateways:
     - infra-network/public-ingress-gateway
   http:
