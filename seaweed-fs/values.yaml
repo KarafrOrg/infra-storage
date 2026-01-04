@@ -77,20 +77,10 @@ oauth2-proxy:
     emailDomains:
       - '*'
     githubOrg: KarafrOrg
-    redirectURL: https://seaweedfs-admin.oauth2.karafra.net/oauth2/callback
+    redirectURL: https://seaweed.karafra.net/api/oauth2proxy/callback
     scope: "user:email"
   extraArgs:
+    - --provider=github
     - --skip-provider-button
     - --cookie-secure=true
     - --reverse-proxy=true
-  ingress:
-    enabled: true
-    className: traefik
-    annotations:
-      cert-manager.io/cluster-issuer: letsencrypt
-    hosts:
-      - seaweedfs-admin.oauth2.karafra.net
-    tls:
-      - hosts:
-          - seaweedfs-admin.oauth2.karafra.net
-        secretName: seaweed-oauth2-proxy-tls
