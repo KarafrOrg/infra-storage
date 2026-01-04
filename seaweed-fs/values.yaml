@@ -57,6 +57,7 @@ seaweedfs:
           matchLabels:
             app.kubernetes.io/name: seaweedfs
             app.kubernetes.io/component: filer
+
   s3:
     domainName: objectstore.karafra.net
   admin:

@@ -1,14 +1,21 @@
 longhorn:
   preUpgradeChecker:
-    jobEnabled: false
-    upgradeVersionCheck: false
-  persistence:
-    defaultClassReplicaCount: 1
+    jobEnabled: true
+    upgradeVersionCheck: true
   metrics:
     serviceMonitor:
       enabled: true
       additionalLabels:
         metrics-collector: prometheus
+  longhornManager:
+    log:
+      format: json
+  longhornDriver:
+    log:
+      format: json
+  longhornUI:
+    log:
+      format: json
   database:
     image: postgres:17
     secretRef:
