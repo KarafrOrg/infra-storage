@@ -62,17 +62,6 @@ seaweedfs:
     domainName: objectstore.karafra.net
   admin:
     enabled: true
-    ingress:
-      enabled: true
-      className: traefik
-      annotations:
-        traefik.ingress.kubernetes.io/router.middlewares: "seaweedfs-admin-forward-auth@kubernetescrd"
-        cert-manager.io/cluster-issuer: letsencrypt
-      host: seaweedfs-admin.karafra.net
-      tls:
-        - hosts:
-            - seaweedfs-admin.karafra.net
-          secretName: seaweedfs-admin-tls
     resources:
       requests:
         cpu: 100m
