@@ -77,7 +77,7 @@ oauth2-proxy:
     emailDomains:
       - '*'
     githubOrg: KarafrOrg
-    redirectURL: https://seaweed.karafra.net/api/oauth2proxy/oauth/callback
+    redirectURL: https://seaweed.karafra.net/oauth2/callback
     scope: "user:email"
   extraArgs:
     - --provider=github
