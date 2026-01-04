@@ -49,6 +49,14 @@ seaweedfs:
           anonymousRead: false
         - name: loki-logs
           anonymousRead: false
+    topologySpreadConstraints:
+      - maxSkew: 1
+        topologyKey: kubernetes.io/hostname
+        whenUnsatisfiable: ScheduleAnyway
+        labelSelector:
+          matchLabels:
+            app.kubernetes.io/name: seaweedfs
+            app.kubernetes.io/component: filer
   s3:
     domainName: objectstore.karafra.net
   admin:
