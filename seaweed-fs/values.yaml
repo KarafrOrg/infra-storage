@@ -60,6 +60,7 @@ seaweedfs:
   worker:
     enabled: true
     adminServer: seaweedfs-admin.infra-storage.svc.cluster.local:23646
+    maxConcurrent: 2
     readinessProbe:
       enabled: false
     livenessProbe:
