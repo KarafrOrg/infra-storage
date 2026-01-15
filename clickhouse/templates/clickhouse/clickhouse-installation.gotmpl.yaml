@@ -1,0 +1,41 @@
+apiVersion: clickhouse.altinity.com/v1
+kind: ClickHouseInstallation
+
+metadata:
+  name: primary-clickhouse-installation
+
+spec:
+  defaults:
+    templates:
+      dataVolumeClaimTemplate: default
+      podTemplate: clickhouse:19.6
+
+  configuration:
+    zookeeper:
+      nodes:
+        - host: zookeeper.{{ .Release.Namespace }}
+    clusters:
+      - name: replicated
+        layout:
+          shardsCount: 2
+          replicasCount: 3
+  templates:
+    volumeClaimTemplates:
+      - name: default
+        spec:
+          accessModes:
+            - ReadWriteOnce
+          resources:
+            requests:
+              storage: 500Mi
+              memory: 100Mi
+              cpu: 100m
+            limits:
+              memory: 200Mi
+              cpu: 200m
+    podTemplates:
+      - name: clickhouse:19.6
+        spec:
+          containers:
+            - name: clickhouse-pod
+              image: clickhouse/clickhouse-server:24.8
