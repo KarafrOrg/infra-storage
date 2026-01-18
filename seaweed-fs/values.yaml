@@ -22,7 +22,7 @@ seaweedfs:
       - name: data2
         type: "persistentVolumeClaim"
         storageClass: "longhorn"
-        size: "10Gi"
+        size: "100Gi"
         maxVolumes: 20
   filer:
     replicas: 3

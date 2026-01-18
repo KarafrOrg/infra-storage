@@ -14,7 +14,7 @@ spec:
     - backendRefs:
         - group: ''
           kind: Service
-          name: seaweedfs-s3
+          name: {{ .Release.Name }}-s3
           port: 8333
           weight: 1
       matches:
