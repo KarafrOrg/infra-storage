@@ -1,7 +1,7 @@
 apiVersion: ceph.rook.io/v1
 kind: CephCluster
 metadata:
-  name: rook-ceph
+  name: primary-rook-ceph
 spec:
   dataDirHostPath: /var/lib/rook
   mon:
