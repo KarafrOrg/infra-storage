@@ -1,0 +1,17 @@
+apiVersion: ceph.rook.io/v1
+kind: CephObjectStore
+metadata:
+  name: primary-object-store
+spec:
+  metadataPool:
+    replicated:
+      size: 3
+  dataPool:
+    replicated:
+      size: 3
+  preservePoolsOnDelete: false
+  gateway:
+    type: s3
+    port: 8000
+    securePort:
+    instances: 1
