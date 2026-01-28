@@ -9,7 +9,7 @@ spec:
     allowMultiplePerNode: false
     volumeClaimTemplate:
       spec:
-        storageClassName: oci-bv
+        storageClassName: longhorn
         resources:
           requests:
             storage: 20Gi
