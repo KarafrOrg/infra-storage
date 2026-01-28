@@ -1,0 +1,109 @@
+apiVersion: ceph.rook.io/v1
+kind: CephCluster
+metadata:
+  name: rook-ceph
+  namespace: rook-ceph # namespace:cluster
+spec:
+  dataDirHostPath: /var/lib/rook
+  mon:
+    count: 3
+    allowMultiplePerNode: false
+    volumeClaimTemplate:
+      spec:
+        storageClassName: oci-bv
+        resources:
+          requests:
+            storage: 20Gi
+  cephVersion:
+    image: quay.io/ceph/ceph:v19.2.0
+    allowUnsupported: false
+  skipUpgradeChecks: false
+  continueUpgradeAfterChecksEvenIfNotHealthy: false
+  mgr:
+    count: 2
+    allowMultiplePerNode: false
+    modules:
+      - name: rook
+        enabled: true
+  dashboard:
+    enabled: true
+    ssl: true
+  crashCollector:
+    disable: false
+  logCollector:
+    enabled: true
+    periodicity: daily # one of: hourly, daily, weekly, monthly
+    maxLogSize: 500M # SUFFIX may be 'M' or 'G'. Must be at least 1M.
+  storage:
+    allowDeviceClassUpdate: false # whether to allow changing the device class of an OSD after it is created
+    allowOsdCrushWeightUpdate: true # whether to allow resizing the OSD crush weight after osd pvc is increased
+    storageClassDeviceSets:
+      - name: set1
+        # The number of OSDs to create from this device set
+        count: 3
+        portable: true
+        tuneDeviceClass: true
+        tuneFastDeviceClass: false
+        encrypted: false
+        placement:
+          topologySpreadConstraints:
+            - maxSkew: 1
+              topologyKey: kubernetes.io/hostname
+              whenUnsatisfiable: ScheduleAnyway
+              labelSelector:
+                matchExpressions:
+                  - key: app
+                    operator: In
+                    values:
+                      - rook-ceph-osd
+        preparePlacement:
+          podAntiAffinity:
+            preferredDuringSchedulingIgnoredDuringExecution:
+              - weight: 100
+                podAffinityTerm:
+                  labelSelector:
+                    matchExpressions:
+                      - key: app
+                        operator: In
+                        values:
+                          - rook-ceph-osd
+                      - key: app
+                        operator: In
+                        values:
+                          - rook-ceph-osd-prepare
+                  topologyKey: kubernetes.io/hostname
+          topologySpreadConstraints:
+            - maxSkew: 1
+              # IMPORTANT: If you don't have zone labels, change this to another key such as kubernetes.io/hostname
+              topologyKey: topology.kubernetes.io/zone
+              whenUnsatisfiable: DoNotSchedule
+              labelSelector:
+                matchExpressions:
+                  - key: app
+                    operator: In
+                    values:
+                      - rook-ceph-osd-prepare
+        resources:
+        volumeClaimTemplates:
+          - metadata:
+              name: data
+            spec:
+              resources:
+                requests:
+                  storage: 20Gi
+              # IMPORTANT: Change the storage class depending on your environment
+              storageClassName: oci-bv
+              volumeMode: Block
+              accessModes:
+                - ReadWriteOnce
+    # when onlyApplyOSDPlacement is false, will merge both placement.All() and storageClassDeviceSets.Placement.
+    onlyApplyOSDPlacement: false
+  resources:
+  priorityClassNames:
+    mon: system-node-critical
+    osd: system-node-critical
+    mgr: system-cluster-critical
+  disruptionManagement:
+    managePodBudgets: true
+    osdMaintenanceTimeout: 30
+    pgHealthCheckTimeout: 0
