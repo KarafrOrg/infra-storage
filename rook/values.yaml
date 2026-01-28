@@ -1,1 +1,3 @@
-rook-ceph: {}
+rook-ceph:
+  global:
+    na
