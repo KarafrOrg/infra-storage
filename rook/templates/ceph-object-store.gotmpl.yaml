@@ -7,12 +7,6 @@ spec:
     metadataPoolName: rgw-meta-pool
     dataPoolName: rgw-data-pool
     preserveRadosNamespaceDataOnDelete: true
-  metadataPool:
-    replicated:
-      size: 3
-  dataPool:
-    replicated:
-      size: 3
   preservePoolsOnDelete: false
   gateway:
     port: 8000
