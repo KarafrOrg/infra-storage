@@ -1,0 +1,13 @@
+apiVersion: ceph.rook.io/v1
+kind: CephObjectStoreUser
+metadata:
+  name: rgw-admin
+spec:
+  store: primary-object-store
+  displayName: "RGW Admin User"
+  capabilities:
+    user: "*"
+    bucket: "*"
+    metadata: "*"
+    usage: "*"
+    zone: "*"
