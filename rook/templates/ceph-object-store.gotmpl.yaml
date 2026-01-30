@@ -5,6 +5,7 @@ metadata:
 spec:
   gateway:
     instances: 1
+    port: 80
   dataPool:
     replicated:
       size: 3
