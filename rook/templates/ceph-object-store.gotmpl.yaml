@@ -3,11 +3,11 @@ kind: CephObjectStore
 metadata:
   name: primary-object-store
 spec:
-  sharedPools:
-    metadataPoolName: rgw-meta-pool
-    dataPoolName: rgw-data-pool
-    preserveRadosNamespaceDataOnDelete: true
-  preservePoolsOnDelete: false
   gateway:
-    port: 8000
     instances: 1
+  dataPool:
+    replicated:
+      size: 3
+  metadataPool:
+    replicated:
+      size: 3
