@@ -1,0 +1,42 @@
+apiVersion: ceph.rook.io/v1
+kind: CephBlockPool
+metadata:
+  name: rgw-root
+  namespace: {{ .Release.Namespace }}
+spec:
+  name: .rgw.root
+  failureDomain: host
+  replicated:
+    size: 3
+    requireSafeReplicaSize: false
+  parameters:
+    pg_num: "8"
+  application: rgw
+---
+apiVersion: ceph.rook.io/v1
+kind: CephBlockPool
+metadata:
+  name: rgw-meta-pool
+  namespace: {{ .Release.Namespace }}
+spec:
+  failureDomain: host
+  replicated:
+    size: 3
+    requireSafeReplicaSize: false
+  parameters:
+    pg_num: "8"
+  application: rgw
+---
+apiVersion: ceph.rook.io/v1
+kind: CephBlockPool
+metadata:
+  name: rgw-data-pool
+  namespace: {{ .Release.Namespace }}
+spec:
+  failureDomain: osd
+  erasureCoded:
+    dataChunks: 2
+    codingChunks: 1
+  parameters:
+    bulk: "true"
+  application: rgw

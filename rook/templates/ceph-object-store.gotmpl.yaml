@@ -3,6 +3,10 @@ kind: CephObjectStore
 metadata:
   name: primary-object-store
 spec:
+  sharedPools:
+    metadataPoolName: rgw-meta-pool
+    dataPoolName: rgw-data-pool
+    preserveRadosNamespaceDataOnDelete: true
   metadataPool:
     replicated:
       size: 3
