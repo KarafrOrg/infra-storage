@@ -34,18 +34,25 @@ edge-access:
   oauth2-proxy:
     config:
       existingSecret: longhorn-oauth2-secret
-      # Additional oauth2-proxy configuration
-      configFile: |-
-        provider = "oidc"
-        oidc_issuer_url = "https://accounts.google.com"
-        email_domains = ["*"]
-        cookie_secure = true
-        cookie_httponly = true
-        cookie_samesite = "lax"
-        pass_access_token = true
-        pass_authorization_header = true
-        set_authorization_header = true
-        set_xauthrequest = true
+      externalSecretKey: longhorn-oauth2-secret
+      provider: github
+      emailDomains:
+        - '*'
+      githubOrg: KarafrOrg
+      redirectURL: https://longhorn.karafra.net/oauth2/callback
+      scope: "user:email"
+    extraArgs:
+      - --provider=github
+      - --skip-provider-button
+      - --cookie-secure=true
+      - --reverse-proxy=true
+      - --upstream=http://seaweedfs-admin:23646
+      - --pass-host-header=true
+      - --set-xauthrequest=true
+      - --cookie-domain=.karafra.net
+      - --whitelist-domain=.karafra.net
+      - --cookie-name=_oauth2_proxy_seaweed
+      - --session-store-type=cookie
 
 longhorn:
   preUpgradeChecker:
