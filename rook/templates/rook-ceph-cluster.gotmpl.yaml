@@ -39,7 +39,7 @@ spec:
     storageClassDeviceSets:
       - name: set1
         # The number of OSDs to create from this device set
-        count: 3
+        count: 6
         portable: true
         tuneDeviceClass: true
         tuneFastDeviceClass: false
