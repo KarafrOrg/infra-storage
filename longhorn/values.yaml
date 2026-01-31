@@ -28,12 +28,12 @@ edge-access:
       port: 80
     externalSecret:
       enabled: true
-      secretName: oauth2-proxy-secret
-      externalSecretKey: oauth2-proxy-credentials
+      secretName: longhorn-oauth2-secret
+      externalSecretKey: longhorn-oauth2-secret
 
   oauth2-proxy:
     config:
-      existingSecret: oauth2-proxy-secret
+      existingSecret: longhorn-oauth2-secret
       # Additional oauth2-proxy configuration
       configFile: |-
         provider = "oidc"
