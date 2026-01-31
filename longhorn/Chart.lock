@@ -2,8 +2,8 @@ dependencies:
 - name: longhorn
   repository: https://charts.longhorn.io
   version: 1.10.1
-- name: oauth2-proxy
-  repository: https://oauth2-proxy.github.io/manifests
-  version: 10.1.0
-digest: sha256:88f651c0000bcee9d6838056a424e3e8395ff2a6e49b746aabfbc8331ef42dfe
-generated: "2026-01-18T07:55:35.491198+01:00"
+- name: edge-access
+  repository: https://karafrorg.github.io/edge-access
+  version: 0.1.0
+digest: sha256:3b88dc0f767fe49d9dc49172d6c023bc0bef816289f6f55457a81d70fb857ab3
+generated: "2026-01-31T22:40:25.175274+01:00"

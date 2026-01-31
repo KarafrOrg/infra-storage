@@ -1,3 +1,52 @@
+edge-access:
+  httpRoute:
+    enabled: true
+    parentRefs:
+      - group: gateway.networking.k8s.io
+        kind: Gateway
+        name: public-ingress-gateway
+        namespace: infra-network
+
+    hostnames:
+      - longhorn.karafra.net
+
+    rules:
+      - matches:
+          - path:
+              type: PathPrefix
+              value: /
+        backendRefs:
+          - group: ""
+            kind: Service
+            name: longhorn-frontend
+            port: 80
+            weight: 1
+
+  oauth2Proxy:
+    enabled: true
+    service:
+      port: 80
+    externalSecret:
+      enabled: true
+      secretName: oauth2-proxy-secret
+      externalSecretKey: oauth2-proxy-credentials
+
+  oauth2-proxy:
+    config:
+      existingSecret: oauth2-proxy-secret
+      # Additional oauth2-proxy configuration
+      configFile: |-
+        provider = "oidc"
+        oidc_issuer_url = "https://accounts.google.com"
+        email_domains = ["*"]
+        cookie_secure = true
+        cookie_httponly = true
+        cookie_samesite = "lax"
+        pass_access_token = true
+        pass_authorization_header = true
+        set_authorization_header = true
+        set_xauthrequest = true
+
 longhorn:
   preUpgradeChecker:
     jobEnabled: true
@@ -28,4 +77,3 @@ longhorn:
       mountPath: /var/lib/ghost/content
       claimName: postgres-longhorn-pvc
       claimSize: 10Gi
-oauth2-proxy:

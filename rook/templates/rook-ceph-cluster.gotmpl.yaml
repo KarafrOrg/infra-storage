@@ -90,7 +90,6 @@ spec:
               resources:
                 requests:
                   storage: 20Gi
-              # IMPORTANT: Change the storage class depending on your environment
               storageClassName: longhorn
               volumeMode: Block
               accessModes:

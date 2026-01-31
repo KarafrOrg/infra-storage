@@ -16,6 +16,6 @@ dependencies:
   - name: longhorn
     version: 1.10.1
     repository: https://charts.longhorn.io
-  - name: oauth2-proxy
-    repository: https://oauth2-proxy.github.io/manifests
-    version: 10.1.0
+  - name: edge-access
+    version: 0.1.0
+    repository: https://karafrorg.github.io/edge-access
