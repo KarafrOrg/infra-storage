@@ -83,6 +83,12 @@ spec:
                     values:
                       - rook-ceph-osd-prepare
         resources:
+          requests:
+            cpu: "100m"
+            memory: "250Mi"
+          limits:
+            cpu: "250m"
+            memory: "500Mi"
         volumeClaimTemplates:
           - metadata:
               name: data
