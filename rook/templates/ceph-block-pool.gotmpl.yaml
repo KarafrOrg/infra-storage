@@ -7,7 +7,7 @@ spec:
   name: .rgw.root
   failureDomain: host
   replicated:
-    size: 3
+    size: 2
     requireSafeReplicaSize: false
   parameters:
     pg_num: "8"
@@ -21,7 +21,7 @@ metadata:
 spec:
   failureDomain: host
   replicated:
-    size: 3
+    size: 2
     requireSafeReplicaSize: false
   parameters:
     pg_num: "8"
