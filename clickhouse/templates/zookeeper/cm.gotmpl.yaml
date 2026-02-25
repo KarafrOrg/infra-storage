@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: zk-log-config
+data:
+  log4j.properties: |
+    log4j.rootLogger=INFO, CONSOLE
+
+    log4j.appender.CONSOLE=org.apache.log4j.ConsoleAppender
+    log4j.appender.CONSOLE.Target=System.out
+    log4j.appender.CONSOLE.layout=org.apache.log4j.PatternLayout
+    log4j.appender.CONSOLE.layout.ConversionPattern=ts=%d{ISO8601} level=%p logger=%c thread=%t msg=%m%n

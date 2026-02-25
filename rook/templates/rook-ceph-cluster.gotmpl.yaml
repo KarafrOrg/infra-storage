@@ -42,7 +42,7 @@ spec:
   storage:
     allowDeviceClassUpdate: false
     allowOsdCrushWeightUpdate: true
-    onlyApplyOSDPlacement: false
+    onlyApplyOSDPlacement: true
 
     storageClassDeviceSets:
       - name: set1
