@@ -8,6 +8,9 @@ spec:
       app: zookeeper
   serviceName: zookeeper-headless
   replicas: 3
+  updateStrategy:
+    type: RollingUpdate
+  podManagementPolicy: OrderedReady
   template:
     metadata:
       labels:
@@ -25,50 +28,65 @@ spec:
               topologyKey: "kubernetes.io/hostname"
       containers:
         - name: kubernetes-zookeeper
-          image: registry.k8s.io/kubernetes-zookeeper:1.0-3.4.10
           imagePullPolicy: Always
+          image: "registry.k8s.io/kubernetes-zookeeper:1.0-3.4.10"
+          resources:
+            requests:
+              memory: "200Mi"
+              cpu: "0.1"
+            limits:
+              memory: "512Mi"
+              cpu: "0.5"
+          ports:
+            - containerPort: 2181
+              name: client
+            - containerPort: 2888
+              name: server
+            - containerPort: 3888
+              name: leader-election
           command:
             - sh
             - -c
-            - >
-              start-zookeeper
-              --servers=3
-              --data_dir=/var/lib/zookeeper/data
-              --data_log_dir=/var/lib/zookeeper/data/log
-              --conf_dir=/opt/zookeeper/conf
-              --client_port=2181
-              --election_port=3888
-              --server_port=2888
-              --tick_time=2000
-              --init_limit=10
-              --sync_limit=5
-              --heap=512M
-              --max_client_cnxns=60
-              --snap_retain_count=3
-              --purge_interval=12
-              --max_session_timeout=40000
-              --min_session_timeout=4000
-              --log_level=INFO
-
+            - "start-zookeeper \
+          --servers=3 \
+          --data_dir=/var/lib/zookeeper/data \
+          --data_log_dir=/var/lib/zookeeper/data/log \
+          --conf_dir=/opt/zookeeper/conf \
+          --client_port=2181 \
+          --election_port=3888 \
+          --server_port=2888 \
+          --tick_time=2000 \
+          --init_limit=10 \
+          --sync_limit=5 \
+          --heap=512M \
+          --max_client_cnxns=60 \
+          --snap_retain_count=3 \
+          --purge_interval=12 \
+          --max_session_timeout=40000 \
+          --min_session_timeout=4000 \
+          --log_level=INFO"
+          readinessProbe:
+            exec:
+              command:
+                - sh
+                - -c
+                - "zookeeper-ready 2181"
+            initialDelaySeconds: 10
+            timeoutSeconds: 5
+          livenessProbe:
+            exec:
+              command:
+                - sh
+                - -c
+                - "zookeeper-ready 2181"
+            initialDelaySeconds: 10
+            timeoutSeconds: 5
           volumeMounts:
             - name: datadir
               mountPath: /var/lib/zookeeper
-
-            # 👇 Override log4j config
-            - name: zk-log-config
-              mountPath: /opt/zookeeper/conf/log4j.properties
-              subPath: log4j.properties
-
-      volumes:
-        # 👇 Add ConfigMap volume
-        - name: zk-log-config
-          configMap:
-            name: zk-log-config
-
       securityContext:
         runAsUser: 1000
         fsGroup: 1000
-
   volumeClaimTemplates:
     - metadata:
         name: datadir
