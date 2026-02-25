@@ -2,8 +2,14 @@ apiVersion: ceph.rook.io/v1
 kind: CephCluster
 metadata:
   name: primary-rook-ceph
+  namespace: infra-storage
 spec:
   dataDirHostPath: /var/lib/rook
+
+  cephVersion:
+    image: quay.io/ceph/ceph:v19.2.0
+    allowUnsupported: false
+
   mon:
     count: 3
     allowMultiplePerNode: false
@@ -13,37 +19,39 @@ spec:
         resources:
           requests:
             storage: 20Gi
-  cephVersion:
-    image: quay.io/ceph/ceph:v19.2.0
-    allowUnsupported: false
-  skipUpgradeChecks: false
-  continueUpgradeAfterChecksEvenIfNotHealthy: false
+
   mgr:
     count: 2
     allowMultiplePerNode: false
     modules:
       - name: rook
         enabled: true
+
   dashboard:
     enabled: true
     ssl: true
+
   crashCollector:
     disable: false
+
   logCollector:
     enabled: true
-    periodicity: daily # one of: hourly, daily, weekly, monthly
-    maxLogSize: 500M # SUFFIX may be 'M' or 'G'. Must be at least 1M.
+    periodicity: daily
+    maxLogSize: 500M
+
   storage:
-    allowDeviceClassUpdate: false # whether to allow changing the device class of an OSD after it is created
-    allowOsdCrushWeightUpdate: true # whether to allow resizing the OSD crush weight after osd pvc is increased
+    allowDeviceClassUpdate: false
+    allowOsdCrushWeightUpdate: true
+    onlyApplyOSDPlacement: false
+
     storageClassDeviceSets:
       - name: set1
-        # The number of OSDs to create from this device set
         count: 6
         portable: true
         tuneDeviceClass: true
         tuneFastDeviceClass: false
         encrypted: false
+
         placement:
           topologySpreadConstraints:
             - maxSkew: 1
@@ -55,6 +63,7 @@ spec:
                     operator: In
                     values:
                       - rook-ceph-osd
+
         preparePlacement:
           podAntiAffinity:
             preferredDuringSchedulingIgnoredDuringExecution:
@@ -73,7 +82,6 @@ spec:
                   topologyKey: kubernetes.io/hostname
           topologySpreadConstraints:
             - maxSkew: 1
-              # IMPORTANT: If you don't have zone labels, change this to another key such as kubernetes.io/hostname
               topologyKey: kubernetes.io/hostname
               whenUnsatisfiable: DoNotSchedule
               labelSelector:
@@ -84,29 +92,31 @@ spec:
                       - rook-ceph-osd-prepare
         resources:
           requests:
-            cpu: "500m"
-            memory: "2Gi"
-          limits:
             cpu: "1"
             memory: "2Gi"
+          limits:
+            cpu: "2"
+            memory: "4Gi"
+
         volumeClaimTemplates:
           - metadata:
               name: data
             spec:
-              resources:
-                requests:
-                  storage: 200Gi
               storageClassName: longhorn
               volumeMode: Block
               accessModes:
                 - ReadWriteOnce
-    # when onlyApplyOSDPlacement is false, will merge both placement.All() and storageClassDeviceSets.Placement.
-    onlyApplyOSDPlacement: false
-  resources:
+              resources:
+                requests:
+                  storage: 100Gi
+
+  resources: {}
+
   priorityClassNames:
     mon: system-node-critical
     osd: system-node-critical
     mgr: system-cluster-critical
+
   disruptionManagement:
     managePodBudgets: true
     osdMaintenanceTimeout: 30
