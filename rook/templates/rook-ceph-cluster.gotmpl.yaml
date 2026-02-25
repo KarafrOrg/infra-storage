@@ -95,7 +95,7 @@ spec:
             spec:
               resources:
                 requests:
-                  storage: 100Gi
+                  storage: 200Gi
               storageClassName: longhorn
               volumeMode: Block
               accessModes:
