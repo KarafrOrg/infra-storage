@@ -1,0 +1,5 @@
+altinity-clickhouse-operator:
+  # Override the chart name portion of generated resource names to keep Kubernetes
+  # label values within the 63-byte limit. Without this, the CRD install Job name
+  # "{release}-altinity-clickhouse-operator-crd-install" exceeds 63 characters.
+  nameOverride: "cho"
