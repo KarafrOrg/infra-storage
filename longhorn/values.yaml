@@ -4,9 +4,7 @@ longhorn:
     upgradeVersionCheck: true
   metrics:
     serviceMonitor:
-      enabled: true
-      additionalLabels:
-        metrics-collector: prometheus
+      enabled: false
   longhornManager:
     resources:
       requests:
