@@ -1,4 +1,0 @@
-altinity-clickhouse-operator:
-  serviceMonitor:
-    enabled: true
-  fullnameOverride: clickhouse-operator

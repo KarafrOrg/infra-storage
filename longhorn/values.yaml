@@ -1,59 +1,3 @@
-edge-access:
-  httpRoute:
-    enabled: true
-    parentRefs:
-      - group: gateway.networking.k8s.io
-        kind: Gateway
-        name: public-ingress-gateway
-        namespace: infra-network
-
-    hostnames:
-      - longhorn.karafra.net
-
-    rules:
-      - matches:
-          - path:
-              type: PathPrefix
-              value: /
-        backendRefs:
-          - group: ""
-            kind: Service
-            name: longhorn-frontend
-            port: 80
-            weight: 1
-
-  oauth2Proxy:
-    enabled: true
-    service:
-      port: 80
-    externalSecret:
-      enabled: true
-      secretName: longhorn-oauth2-secret
-      externalSecretKey: longhorn-oauth2-secret
-
-  oauth2-proxy:
-    config:
-      existingSecret: longhorn-oauth2-secret
-      externalSecretKey: longhorn-oauth2-secret
-      provider: github
-      emailDomains:
-        - '*'
-      githubOrg: KarafrOrg
-      redirectURL: https://longhorn.karafra.net/oauth2/callback
-      scope: "user:email"
-    extraArgs:
-      - --provider=github
-      - --skip-provider-button
-      - --cookie-secure=true
-      - --reverse-proxy=true
-      - --upstream=http://seaweedfs-admin:23646
-      - --pass-host-header=true
-      - --set-xauthrequest=true
-      - --cookie-domain=.karafra.net
-      - --whitelist-domain=.karafra.net
-      - --cookie-name=_oauth2_proxy_seaweed
-      - --session-store-type=cookie
-
 longhorn:
   preUpgradeChecker:
     jobEnabled: true
@@ -64,6 +8,13 @@ longhorn:
       additionalLabels:
         metrics-collector: prometheus
   longhornManager:
+    resources:
+      requests:
+        cpu: 100m
+        memory: 128Mi
+      limits:
+        cpu: 200m
+        memory: 256Mi
     log:
       format: json
   longhornDriver:
