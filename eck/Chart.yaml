@@ -1,0 +1,17 @@
+name: infra-storage-longhorn
+apiVersion: v2
+version: 0.1.0
+description: A Helm chart for deploying Elasticsearch operator
+type: application
+appVersion: 0.1.0
+maintainers:
+  - name: KarafrOrg
+    email: karafra@karafra.net
+keywords:
+  - storage
+  - elasticsearch
+  - homelab
+dependencies:
+  - name: eck-operator
+    version: 3.4.0
+    repository: https://helm.elastic.co
