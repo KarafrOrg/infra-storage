@@ -88,7 +88,9 @@ spec:
         runAsUser: 1000
         fsGroup: 1000
   volumeClaimTemplates:
-    - metadata:
+    - apiVersion: v1
+      kind: PersistentVolumeClaim
+      metadata:
         name: datadir
       spec:
         accessModes:
