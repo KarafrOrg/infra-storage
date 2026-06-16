@@ -1,7 +1,7 @@
 longhorn:
   preUpgradeChecker:
-    jobEnabled: true
-    upgradeVersionCheck: true
+    jobEnabled: false
+    upgradeVersionCheck: false
   metrics:
     serviceMonitor:
       enabled: false
