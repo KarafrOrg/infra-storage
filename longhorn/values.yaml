@@ -33,3 +33,5 @@ longhorn:
       mountPath: /var/lib/ghost/content
       claimName: postgres-longhorn-pvc
       claimSize: 10Gi
+  defaultSettings:
+    deletingConfirmationFlag: true
